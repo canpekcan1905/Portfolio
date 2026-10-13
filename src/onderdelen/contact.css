@@ -4,10 +4,10 @@
 .contact__tekst { max-width: 47ch; margin-top: 17px; color: var(--ink-zacht); font-size: 14px; }
 .contact__lijst { overflow: hidden; border: 1px solid var(--lijn); border-radius: 12px 3px 12px 3px; font-style: normal; }
 .contact__rij { display: grid; grid-template-columns: 72px 1fr 20px; align-items: center; gap: 12px; padding: 17px; background: color-mix(in srgb, var(--bg) 88%, transparent); transition: background 0.2s ease, padding 0.2s ease; }
-.contact__rij + .contact__rij, .contact__lijst li + li { border-top: 1px solid var(--lijn); }
+.contact__lijst li + li { border-top: 1px solid var(--lijn); }
 .contact__rij:hover { padding-left: 22px; background: var(--vlak-hover); color: var(--ink); }
 .contact__label { color: var(--ink-licht); font-size: 11px; font-weight: 700; text-transform: uppercase; }
 .contact__waarde { overflow-wrap: anywhere; font-size: 13px; font-weight: 500; }
-.contact__pijl { justify-self: end; color: var(--accent-soft); }
+.contact__pijl { justify-self: end; color: var(--accent-tekst); }
 @media (max-width: 850px) { .contact__grid { grid-template-columns: 1fr; padding: 30px; } }
 @media (max-width: 620px) { .contact { margin-top: 82px; } .contact__grid { gap: 24px; padding: 22px; } .contact__rij { grid-template-columns: 1fr 20px; } .contact__waarde { grid-row: 2; } .contact__pijl { grid-column: 2; grid-row: 1 / 3; } }

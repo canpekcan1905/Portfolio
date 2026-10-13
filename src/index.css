@@ -1,5 +1,4 @@
 :root {
-    font-family: 'Archivo', Arial, sans-serif;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -9,7 +8,7 @@
     --marge: 48px;
 }
 
-[data-tema='licht'] {
+[data-thema='licht'] {
     color-scheme: light;
     --bg: #f2f1ed;
     --vlak: #faf9f6;
@@ -26,10 +25,12 @@
     --schaduw: rgb(10 14 22 / 12%);
     --accent: #365cf5;
     --accent-soft: #c9ff76;
+    --accent-tekst: #3f6d00; /* donkerder groen, anders onleesbaar op lichte achtergrond */
     --canvaskleur: rgb(25 26 28 / 15%);
+    --gloed: rgb(54 92 245 / 8%);
 }
 
-[data-tema='donker'] {
+[data-thema='donker'] {
     color-scheme: dark;
     --bg: #090b0f;
     --vlak: #101319;
@@ -46,21 +47,22 @@
     --schaduw: rgb(0 0 0 / 42%);
     --accent: #8aa3ff;
     --accent-soft: #d4ff78;
+    --accent-tekst: #d4ff78;
     --canvaskleur: rgb(210 218 255 / 17%);
+    --gloed: rgb(64 78 156 / 13%);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
     min-width: 320px;
-    background: radial-gradient(ellipse at 74% 12%, rgb(64 78 156 / 13%), transparent 34%), var(--bg, #090b0f);
-    color: var(--ink, #f3f1eb);
+    background: radial-gradient(ellipse at 74% 12%, var(--gloed), transparent 34%), var(--bg);
+    color: var(--ink);
     font-family: var(--font);
     font-size: 16px;
     line-height: 1.65;
     transition: background-color 0.25s ease, color 0.25s ease;
 }
-body.licht { background: radial-gradient(ellipse at 74% 12%, rgb(54 92 245 / 8%), transparent 34%), #f2f1ed; }
 button, input, textarea { color: inherit; font: inherit; }
 button { cursor: pointer; }
 a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
@@ -79,14 +81,7 @@ ul, ol { list-style: none; }
     line-height: 1.4;
     text-transform: uppercase;
 }
-.kicker--midden { text-align: left; }
 
-.pill, .pill-knop { display: inline-flex; align-items: center; gap: 9px; }
-.pill { border: 1px solid var(--rand); border-radius: 999px; padding: 8px 13px; font-size: 13px; }
-.pill:hover { color: var(--ink); background: var(--vlak-hover); }
-.pill__glyph { font-weight: 700; }
-.pill-knop { border: 1px solid var(--rand-sterk); border-radius: 7px; padding: 8px 12px; font-size: 13px; }
-.pill-knop__pijl { color: var(--accent); }
 
 .verschijn { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .verschijn.zichtbaar { opacity: 1; transform: none; }

@@ -10,50 +10,38 @@ import VoetTekst from './onderdelen/voetTekst.jsx'
 import useVerschijn from './haken/Verschijn.js'
 import useActieveSectie from './haken/gebruikActieveSectie.js'
 
-const SECTIE_IDS = ['home', 'over', 'projecten', 'artikels', 'contact']
-const THEMA_OPSLAG_SLEUTEL = 'cp-tema-v2'
+const SECTIES = ['home', 'over', 'projecten', 'artikels', 'contact']
 
 function App() {
-    // Thema wordt onthouden in localStorage, met licht als standaardwaarde
-    const [thema, setThema] = useState(() => {
-        const opgeslagenThema = localStorage.getItem(THEMA_OPSLAG_SLEUTEL)
-        const isGeldigeWaarde = opgeslagenThema === 'licht' || opgeslagenThema === 'donker'
-        return isGeldigeWaarde ? opgeslagenThema : 'donker'
-    })
-
-    const {
-        actieveSectieId,
-        headerIsGeplakt,
-        scrollVoortgangPercentage,
-    } = useActieveSectie(SECTIE_IDS)
+    // Donker thema is de standaard, tenzij de bezoeker eerder licht koos
+    const [thema, setThema] = useState(localStorage.getItem('thema') || 'donker')
+    const { actieveSectie, geplakt, voortgang } = useActieveSectie(SECTIES)
 
     useVerschijn()
 
-    // Sla het thema op en werk de globale <body>-klasse bij zodra het verandert
+    // Het thema staat op <html>, zodat de kleuren overal op de pagina werken
     useEffect(() => {
-        localStorage.setItem(THEMA_OPSLAG_SLEUTEL, thema)
-        document.body.classList.toggle('licht', thema === 'licht')
+        document.documentElement.dataset.thema = thema
+        localStorage.setItem('thema', thema)
     }, [thema])
 
     function wisselThema() {
-        setThema((huidigThema) => (huidigThema === 'donker' ? 'licht' : 'donker'))
+        setThema(thema === 'donker' ? 'licht' : 'donker')
     }
 
     return (
-        <div className="app" data-tema={thema}>
+        <div className="app">
             <Achtergrond />
+
             <div className="voortgang">
-                <div
-                    className="voortgang__balk"
-                    style={{ width: scrollVoortgangPercentage + '%' }}
-                />
+                <div className="voortgang__balk" style={{ width: voortgang + '%' }} />
             </div>
 
             <Navigatie
-                tema={thema}
-                wisselTema={wisselThema}
-                actieveSectie={actieveSectieId}
-                geplakt={headerIsGeplakt}
+                thema={thema}
+                wisselThema={wisselThema}
+                actieveSectie={actieveSectie}
+                geplakt={geplakt}
             />
 
             <HoofdSectie />

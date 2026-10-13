@@ -36,10 +36,6 @@
     letter-spacing: -0.045em;
     text-wrap: pretty;
 }
-.overmij__lead em {
-    font-style: normal;
-    color: var(--accent);
-}
 
 .overmij__tekst {
     max-width: 58ch;
@@ -70,9 +66,6 @@
     transform: translateY(-2px);
 }
 
-.stack__kaart:nth-child(1), .stack__kaart:nth-child(2),
-.stack__kaart:nth-child(3), .stack__kaart:nth-child(4) { max-width: none; }
-
 .stack__titel {
     margin-bottom: 7px;
     font-size: 13px;
@@ -98,9 +91,6 @@
     margin: 0;
 }
 
-/* .overmij__foto staat nu rechtstreeks op de <img> (geen omhullende div meer),
-   dus de framing (aspect-ratio, afronding, hoogte) en de beeldweergave
-   (object-fit, filter) staan hier in één regel samengevoegd. */
 .overmij__foto {
     display: block;
     width: 100%;

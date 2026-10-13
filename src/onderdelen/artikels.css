@@ -8,7 +8,7 @@
 .artikel::after { position: absolute; top: -32px; right: -32px; width: 78px; height: 78px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 50%; content: ''; transition: transform 0.35s ease; }
 .artikel:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 54%, var(--lijn)); background: var(--vlak-hover); }
 .artikel:hover::after { transform: scale(1.16); }
-.artikel__meta { color: var(--accent-soft); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.artikel__meta { color: var(--accent-tekst); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
 .artikel__titel { font-size: 18px; font-weight: 600; line-height: 1.32; letter-spacing: -0.035em; }
 .artikel__tekst { color: var(--ink-zacht); font-size: 13px; line-height: 1.75; text-wrap: pretty; }
 .artikel__voet { width: 100%; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--lijn); color: var(--ink-vaag); font-family: var(--font-mono); font-size: 10px; }

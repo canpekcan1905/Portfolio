@@ -1,123 +1,95 @@
-import {useEffect, useRef} from 'react'
+import { useEffect, useRef } from 'react'
 import './achtergrond.css'
 
-/**
- * Achtergrondanimatie met langzaam driftende "plusjes" (kleine kruisjes),
- * die licht meebewegen met de muis (parallax-effect).
- */
+// Kleine plusjes die traag over het scherm bewegen
+// en een beetje meeschuiven met de muis.
 function Achtergrond() {
     const canvasRef = useRef(null)
 
     useEffect(() => {
-        const canvasElement = canvasRef.current
-        if (!canvasElement) return
+        const canvas = canvasRef.current
+        const ctx = canvas.getContext('2d')
+        const stilstaan = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-        const tekenContext = canvasElement.getContext('2d')
-
-        // --- Instellingen ---
-        const aantalPlusjes = 90
-        const gebruikerWilMinderBeweging = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-        const snelheidVanMuisVolgen = 0.05 // hoe snel de parallax de muis "inhaalt"
-        const tijdStapPerFrame = 0.12
-        const maxParallaxVerschuivingX = 34
-        const maxParallaxVerschuivingY = 26
-        const golfHoogte = 6 // verticale golfbeweging van elk plusje
-        const golfSnelheid = 0.02
-
-        // --- Genereer de plusjes met willekeurige positie, diepte en grootte ---
-        // x/y zijn relatieve posities (0 tot 1), diepte bepaalt hoe sterk de
-        // parallax en drift werken, grootte is de straal van het plusje in pixels.
-        const plusjes = Array.from({length: aantalPlusjes}, () => ({
-            x: Math.random(), y: Math.random(), diepte: 0.4 + Math.random() * 0.8, grootte: 3 + Math.random() * 4,
-        }))
-
-        // Huidige en doel-muispositie (relatief, 0 tot 1), voor vloeiende parallax
-        let huidigeMuisX = 0.5
-        let huidigeMuisY = 0.5
-        let doelMuisX = 0.5
-        let doelMuisY = 0.5
-        let verstrekenTijd = 0
-        let animatieFrameId = 0
-
-        // Haalt de achtergrondkleur van het huidige thema op,
-        // met een lichtgrijze fallback als die niet gevonden wordt.
-        function haalPlusjesKleurOp() {
-            const themaElement = document.querySelector('[data-tema]')
-            const themaKleur = themaElement && getComputedStyle(themaElement).getPropertyValue('--canvaskleur').trim()
-
-            return themaKleur || 'rgba(244,244,243,0.16)'
+        // x en y zijn tussen 0 en 1, zodat ze bij elke schermgrootte passen
+        const plusjes = []
+        for (let i = 0; i < 90; i++) {
+            plusjes.push({
+                x: Math.random(),
+                y: Math.random(),
+                diepte: 0.4 + Math.random() * 0.8,
+                grootte: 3 + Math.random() * 4,
+            })
         }
 
-        // Zet de canvas-grootte gelijk aan het scherm, rekening houdend met
-        // scherpe (retina) schermen, tot een maximum van 2x pixel-dichtheid.
-        function pasCanvasGrootteAan() {
-            const pixelDichtheid = Math.min(window.devicePixelRatio || 1, 2)
-            canvasElement.width = window.innerWidth * pixelDichtheid
-            canvasElement.height = window.innerHeight * pixelDichtheid
-            tekenContext.setTransform(pixelDichtheid, 0, 0, pixelDichtheid, 0, 0)
+        const muis = { x: 0.5, y: 0.5 }
+        const doel = { x: 0.5, y: 0.5 }
+        let tijd = 0
+        let frame
+        let thema = null
+        let kleur = ''
+
+        function pasGrootteAan() {
+            const dichtheid = Math.min(window.devicePixelRatio || 1, 2)
+            canvas.width = window.innerWidth * dichtheid
+            canvas.height = window.innerHeight * dichtheid
+            ctx.setTransform(dichtheid, 0, 0, dichtheid, 0, 0)
         }
 
-        // Onthoudt waar de muis naartoe beweegt, als relatieve positie (0 tot 1)
-        function onthoudMuisPositie(event) {
-            doelMuisX = event.clientX / window.innerWidth
-            doelMuisY = event.clientY / window.innerHeight
+        function volgMuis(e) {
+            doel.x = e.clientX / window.innerWidth
+            doel.y = e.clientY / window.innerHeight
         }
 
-        // Eén animatieframe: beweeg alles een klein beetje en teken opnieuw
-        function tekenFrame() {
-            const schermBreedte = window.innerWidth
-            const schermHoogte = window.innerHeight
+        function teken() {
+            const breedte = window.innerWidth
+            const hoogte = window.innerHeight
 
-            // Vloeiend naar de muispositie toe bewegen (in plaats van abrupt springen)
-            huidigeMuisX += (doelMuisX - huidigeMuisX) * snelheidVanMuisVolgen
-            huidigeMuisY += (doelMuisY - huidigeMuisY) * snelheidVanMuisVolgen
+            // Muis langzaam volgen in plaats van meteen te springen
+            muis.x += (doel.x - muis.x) * 0.05
+            muis.y += (doel.y - muis.y) * 0.05
+            if (!stilstaan) tijd += 0.12
 
-            if (!gebruikerWilMinderBeweging) {
-                verstrekenTijd += tijdStapPerFrame
+            ctx.clearRect(0, 0, breedte, hoogte)
+            // Kleur enkel opnieuw opvragen als het thema gewisseld is
+            if (document.documentElement.dataset.thema !== thema) {
+                thema = document.documentElement.dataset.thema
+                kleur = getComputedStyle(document.documentElement).getPropertyValue('--canvaskleur')
             }
+            ctx.strokeStyle = kleur
+            ctx.lineWidth = 1
 
-            tekenContext.clearRect(0, 0, schermBreedte, schermHoogte)
-            tekenContext.strokeStyle = haalPlusjesKleurOp()
-            tekenContext.lineWidth = 1
+            plusjes.forEach((p, i) => {
+                const x = ((p.x * breedte + tijd * p.diepte) % (breedte + 60)) - 30
+                    + (muis.x - 0.5) * 34 * p.diepte
+                const y = p.y * hoogte
+                    + Math.sin((tijd * 0.02 + i) * 0.6) * 6
+                    + (muis.y - 0.5) * 26 * p.diepte
 
-            plusjes.forEach((plusje, index) => {
-                // Horizontale positie: drift naar rechts die "wrapt" om het scherm,
-                // plus een kleine verschuiving op basis van de muispositie (parallax)
-                const parallaxX = (huidigeMuisX - 0.5) * maxParallaxVerschuivingX * plusje.diepte
-                const positieX = ((plusje.x * schermBreedte + verstrekenTijd * plusje.diepte) % (schermBreedte + 60)) - 30 + parallaxX
-
-                // Verticale positie: lichte golfbeweging plus parallax op basis van de muis
-                const golfBeweging = Math.sin((verstrekenTijd * golfSnelheid + index) * 0.6) * golfHoogte
-                const parallaxY = (huidigeMuisY - 0.5) * maxParallaxVerschuivingY * plusje.diepte
-                const positieY = plusje.y * schermHoogte + golfBeweging + parallaxY
-
-                // Teken een plusje als twee gekruiste lijntjes
-                tekenContext.beginPath()
-                tekenContext.moveTo(positieX - plusje.grootte, positieY)
-                tekenContext.lineTo(positieX + plusje.grootte, positieY)
-                tekenContext.moveTo(positieX, positieY - plusje.grootte)
-                tekenContext.lineTo(positieX, positieY + plusje.grootte)
-                tekenContext.stroke()
+                ctx.beginPath()
+                ctx.moveTo(x - p.grootte, y)
+                ctx.lineTo(x + p.grootte, y)
+                ctx.moveTo(x, y - p.grootte)
+                ctx.lineTo(x, y + p.grootte)
+                ctx.stroke()
             })
 
-            animatieFrameId = requestAnimationFrame(tekenFrame)
+            frame = requestAnimationFrame(teken)
         }
 
-        pasCanvasGrootteAan()
-        tekenFrame()
-
-        window.addEventListener('resize', pasCanvasGrootteAan)
-        window.addEventListener('pointermove', onthoudMuisPositie, {passive: true})
+        pasGrootteAan()
+        teken()
+        window.addEventListener('resize', pasGrootteAan)
+        window.addEventListener('pointermove', volgMuis, { passive: true })
 
         return () => {
-            cancelAnimationFrame(animatieFrameId)
-            window.removeEventListener('resize', pasCanvasGrootteAan)
-            window.removeEventListener('pointermove', onthoudMuisPositie)
+            cancelAnimationFrame(frame)
+            window.removeEventListener('resize', pasGrootteAan)
+            window.removeEventListener('pointermove', volgMuis)
         }
     }, [])
 
-    return <canvas className="achtergrond" ref={canvasRef} aria-hidden="true"/>
+    return <canvas className="achtergrond" ref={canvasRef} aria-hidden="true" />
 }
 
 export default Achtergrond

@@ -1,7 +1,7 @@
 import './overMij.css'
 import portret from '../assets/portfolio_foto.webp'
 
-const TECHNOLOGIE_STACKS = [
+const STACK = [
     { titel: 'Back-end', items: 'Java / C# / Python / PostgreSQL / MySQL / Node.js' },
     { titel: 'Front-end', items: 'JavaScript / TypeScript / React / HTML / CSS' },
     { titel: 'Desktop', items: 'JavaFX / .NET' },
@@ -29,10 +29,10 @@ function OverMij() {
                     </p>
 
                     <ul className="stack">
-                        {TECHNOLOGIE_STACKS.map((stackGroep) => (
-                            <li className="stack__kaart" key={stackGroep.titel}>
-                                <h3 className="stack__titel">{stackGroep.titel}</h3>
-                                <p className="stack__items">{stackGroep.items}</p>
+                        {STACK.map((groep) => (
+                            <li className="stack__kaart" key={groep.titel}>
+                                <h3 className="stack__titel">{groep.titel}</h3>
+                                <p className="stack__items">{groep.items}</p>
                             </li>
                         ))}
                     </ul>

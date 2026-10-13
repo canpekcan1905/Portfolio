@@ -22,7 +22,7 @@
 .hero__titel { display: flex; flex-direction: column; margin-top: 34px; font-family: var(--font); font-size: clamp(84px, 11.4vw, 150px); font-weight: 600; line-height: 0.76; letter-spacing: -0.105em; animation: heroReveal 0.9s 0.14s both; }
 .hero__titel span { color: var(--ink); }
 .hero__titel em { margin-top: 16px; color: transparent; font-style: normal; -webkit-text-stroke: 1.5px var(--ink-licht); }
-.hero__rol { width: fit-content; margin-top: 30px; padding-left: 14px; border-left: 2px solid var(--accent-soft); color: var(--ink-licht); font-size: 14px; letter-spacing: 0.01em; animation: heroReveal 0.8s 0.22s both; }
+.hero__rol { width: fit-content; margin-top: 30px; padding-left: 14px; border-left: 2px solid var(--accent-tekst); color: var(--ink-licht); font-size: 14px; letter-spacing: 0.01em; animation: heroReveal 0.8s 0.22s both; }
 .hero__intro { max-width: 53ch; margin-top: 21px; color: var(--ink-zacht); font-size: clamp(15px, 1.35vw, 18px); line-height: 1.8; text-wrap: pretty; animation: heroReveal 0.8s 0.3s both; }
 .hero__acties { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; animation: heroReveal 0.8s 0.38s both; }
 .knop { display: inline-flex; align-items: center; justify-content: center; gap: 17px; min-height: 48px; padding: 0 18px; border: 1px solid var(--rand-sterk); border-radius: 999px; font-size: 13px; font-weight: 600; transition: transform 0.24s ease, background 0.24s ease, color 0.24s ease, border-color 0.24s ease; }
@@ -32,7 +32,7 @@
 .knop--primair span { font-size: 18px; line-height: 1; }
 .knop--secundair { color: var(--ink-zacht); }
 .hero__stack { display: flex; flex-wrap: wrap; gap: 0; margin-top: 38px; color: var(--ink-vaag); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; animation: heroReveal 0.8s 0.44s both; }
-.hero__stack li + li::before { content: '·'; padding: 0 12px; color: var(--accent-soft); }
+.hero__stack li + li::before { content: '·'; padding: 0 12px; color: var(--accent-tekst); }
 
 .hero__portret { position: relative; width: 100%; max-width: 390px; justify-self: end; margin: 0 9px 5px 0; padding: 11px; border: 1px solid var(--rand); border-radius: 48% 48% 8px 8px; background: color-mix(in srgb, var(--vlak) 84%, transparent); box-shadow: 0 35px 90px var(--schaduw); transform: rotate(1.5deg); animation: heroReveal 1s 0.25s both; }
 .hero__portret::before { position: absolute; z-index: -1; inset: -18px 20px 18px -18px; border: 1px solid color-mix(in srgb, var(--accent) 47%, transparent); border-radius: 48% 48% 10px 10px; content: ''; transform: rotate(-3deg); }
@@ -41,7 +41,7 @@
 .hero__portret figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 13px 5px 2px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-licht); }
 .hero__portret figcaption span:first-child { color: var(--ink); font-weight: 700; }
 .hero__verder { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: clamp(38px, 7vh, 70px); padding-top: 14px; border-top: 1px solid var(--lijn); color: var(--ink-vaag); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
-.hero__verder span { color: var(--accent-soft); font-size: 17px; animation: arrowFloat 2.3s ease-in-out infinite; }
+.hero__verder span { color: var(--accent-tekst); font-size: 17px; animation: arrowFloat 2.3s ease-in-out infinite; }
 
 @keyframes arrowFloat { 50% { transform: translateY(5px); } }
 
@@ -54,6 +54,7 @@
 @media (max-width: 620px) {
     .hero { padding-top: 112px; padding-bottom: 38px; }
     .hero__inhoud { grid-template-columns: 1fr; gap: 38px; }
+    .hero__kicker { gap: 8px; font-size: 10px; letter-spacing: 0.04em; } /* past zo op één regel */
     .hero__titel { margin-top: 27px; font-size: clamp(73px, 18.5vw, 120px); }
     .hero__titel em { margin-top: 12px; -webkit-text-stroke-width: 1px; }
     .hero__intro { max-width: 46ch; }

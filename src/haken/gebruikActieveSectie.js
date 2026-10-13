@@ -1,68 +1,35 @@
 import { useEffect, useState } from 'react'
 
-/**
- * Houdt bij:
- * - welke sectie momenteel in beeld is (actieveSectieId)
- * - of de pagina voldoende gescrold is om de header "geplakt" te tonen
- * - hoeveel procent van de pagina al gescrold is (scrollVoortgangPercentage)
- *
- * @param {string[]} sectieIds - de HTML id's van de secties die je wilt volgen
- */
-export default function useActieveSectie(sectieIds) {
-    const [actieveSectieId, setActieveSectieId] = useState(sectieIds[0])
-    const [headerIsGeplakt, setHeaderIsGeplakt] = useState(false)
-    const [scrollVoortgangPercentage, setScrollVoortgangPercentage] = useState(0)
+// Houdt bij welke sectie in beeld is, of de header een rand moet krijgen
+// en hoe ver de bezoeker al gescrold heeft (voor de balk bovenaan).
+export default function useActieveSectie(secties) {
+    const [actieveSectie, setActieveSectie] = useState(secties[0])
+    const [geplakt, setGeplakt] = useState(false)
+    const [voortgang, setVoortgang] = useState(0)
 
     useEffect(() => {
-        const drempelVoorGeplakteHeader = 40 // pixels vanaf de top
-        const drempelVoorActieveSectie = 0.4 // 40% van de schermhoogte vanaf boven
+        function bijScrollen() {
+            const scrollbaar = document.documentElement.scrollHeight - window.innerHeight
+            setVoortgang(scrollbaar > 0 ? (window.scrollY / scrollbaar) * 100 : 0)
 
-        function berekenScrollStatus() {
-            // 1. Bereken hoeveel procent van de pagina gescrold is
-            const totaalScrollbareHoogte =
-                document.documentElement.scrollHeight - window.innerHeight
+            setGeplakt(window.scrollY > 40)
 
-            const nieuwePercentage =
-                totaalScrollbareHoogte > 0
-                    ? Math.min(1, window.scrollY / totaalScrollbareHoogte) * 100
-                    : 0
-
-            setScrollVoortgangPercentage(nieuwePercentage)
-
-            // 2. Bepaal of de header "geplakt" moet worden (na een beetje scrollen)
-            setHeaderIsGeplakt(window.scrollY > drempelVoorGeplakteHeader)
-
-            // 3. Zoek welke sectie nu het meest "actief" is
-            //    (de laatste sectie waarvan de bovenkant al voorbij de drempel is gescrold)
-            let huidigeActieveSectie = sectieIds[0]
-
-            for (const sectieId of sectieIds) {
-                const sectieElement = document.getElementById(sectieId)
-                if (!sectieElement) continue
-
-                const afstandTotBovenkantScherm =
-                    sectieElement.getBoundingClientRect().top
-
-                const isSectieVoldoendeInBeeld =
-                    afstandTotBovenkantScherm < window.innerHeight * drempelVoorActieveSectie
-
-                if (isSectieVoldoendeInBeeld) {
-                    huidigeActieveSectie = sectieId
+            // De actieve sectie is de laatste waarvan de bovenkant
+            // al boven 40% van het scherm zit
+            let actief = secties[0]
+            for (const id of secties) {
+                const sectie = document.getElementById(id)
+                if (sectie && sectie.getBoundingClientRect().top < window.innerHeight * 0.4) {
+                    actief = id
                 }
             }
-
-            setActieveSectieId(huidigeActieveSectie)
+            setActieveSectie(actief)
         }
 
-        window.addEventListener('scroll', berekenScrollStatus, { passive: true })
-        berekenScrollStatus() // meteen uitvoeren bij het laden
+        bijScrollen()
+        window.addEventListener('scroll', bijScrollen, { passive: true })
+        return () => window.removeEventListener('scroll', bijScrollen)
+    }, [secties])
 
-        return () => window.removeEventListener('scroll', berekenScrollStatus)
-    }, [sectieIds])
-
-    return {
-        actieveSectieId,
-        headerIsGeplakt,
-        scrollVoortgangPercentage,
-    }
+    return { actieveSectie, geplakt, voortgang }
 }

@@ -1,7 +1,7 @@
 import './projectenSectie.css'
-import patchworkOverzicht from '../assets/patchwork-overzicht.png'
-import patchworkMenu from '../assets/patchwork-menu.png'
-import patchworkLanding from '../assets/patchwork-landing.png'
+import patchworkOverzicht from '../assets/patchwork-overzicht.webp'
+import patchworkMenu from '../assets/patchwork-menu.webp'
+import patchworkLanding from '../assets/patchwork-landing.webp'
 
 const PROJECTEN = [
     {
@@ -40,7 +40,8 @@ const PROJECTEN = [
 ]
 
 function Projectbeeld({ project }) {
-    if (project.beelden.length) {
+    // Heeft het project screenshots? Toon dan een collage, anders een gekleurde cover
+    if (project.beelden.length > 0) {
         return (
             <figure className="collage" aria-label={'Schermafbeeldingen van ' + project.titel}>
                 {project.beelden.map((beeld, index) => (
@@ -76,7 +77,11 @@ function ProjectenSectie() {
                 {PROJECTEN.map((project) => (
                     <li className="project verschijn" key={project.nummer}>
                         <article className="project__info">
-                            <p className="project__meta"><span>{project.nummer}</span><span>{project.status}</span><span>{project.jaar}</span></p>
+                            <p className="project__meta">
+                                <span>{project.nummer}</span>
+                                <span>{project.status}</span>
+                                <span>{project.jaar}</span>
+                            </p>
                             <p className="project__soort">{project.soort}</p>
                             <h3 className="project__titel">{project.titel}</h3>
                             <p className="project__tekst">{project.tekst}</p>
@@ -86,7 +91,9 @@ function ProjectenSectie() {
                             </ul>
 
                             <ul className="project__tech" aria-label="Gebruikte technologieën">
-                                {project.tech.map((technologie) => <li className="project__tag" key={technologie}>{technologie}</li>)}
+                                {project.tech.map((tech) => (
+                                    <li className="project__tag" key={tech}>{tech}</li>
+                                ))}
                             </ul>
                         </article>
                         <Projectbeeld project={project} />

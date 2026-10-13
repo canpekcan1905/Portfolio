@@ -22,7 +22,7 @@ function HoofdSectie() {
 
                     <div className="hero__acties">
                         <a className="knop knop--primair" href="#projecten">
-                        Bekijk projecten <span aria-hidden="true">&#8599;</span>
+                            Bekijk projecten <span aria-hidden="true">&#8599;</span>
                         </a>
                         <a className="knop knop--secundair" href="#contact">Neem contact op</a>
                     </div>
@@ -40,7 +40,9 @@ function HoofdSectie() {
                     </figcaption>
                 </figure>
             </div>
-            <a className="hero__verder" href="#over">Scroll om verder te ontdekken <span aria-hidden="true">&#8595;</span></a>
+            <a className="hero__verder" href="#over">
+                Scroll om verder te ontdekken <span aria-hidden="true">&#8595;</span>
+            </a>
         </section>
     )
 }
