@@ -1,0 +1,12 @@
+.voet {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px;
+    max-width: var(--breedte);
+    margin: 0 auto;
+    padding: 30px var(--marge) 38px;
+    border-top: 1px solid var(--lijn);
+    font-size: 11px;
+    color: var(--ink-vaag);
+}

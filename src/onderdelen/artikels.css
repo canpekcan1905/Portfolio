@@ -1,0 +1,17 @@
+.artikels { max-width: var(--breedte); margin: 0 auto; padding: 112px var(--marge) 0; scroll-margin-top: 96px; }
+.artikels__kop { display: flex; align-items: end; justify-content: space-between; gap: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--lijn); }
+.artikels__kop h2 { max-width: 20ch; margin-top: 8px; font-size: clamp(30px, 3.7vw, 42px); font-weight: 600; line-height: 1.1; letter-spacing: -0.055em; }
+.artikels__sub { max-width: 34ch; color: var(--ink-licht); font-size: 14px; }
+.artikels__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.artikels__grid > li { display: flex; }
+.artikel { position: relative; display: flex; width: 100%; flex-direction: column; align-items: flex-start; gap: 15px; padding: 24px; overflow: hidden; border: 1px solid var(--lijn); border-radius: 14px 4px 14px 4px; background: color-mix(in srgb, var(--vlak) 82%, transparent); transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease; }
+.artikel::after { position: absolute; top: -32px; right: -32px; width: 78px; height: 78px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 50%; content: ''; transition: transform 0.35s ease; }
+.artikel:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--accent) 54%, var(--lijn)); background: var(--vlak-hover); }
+.artikel:hover::after { transform: scale(1.16); }
+.artikel__meta { color: var(--accent-soft); font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.artikel__titel { font-size: 18px; font-weight: 600; line-height: 1.32; letter-spacing: -0.035em; }
+.artikel__tekst { color: var(--ink-zacht); font-size: 13px; line-height: 1.75; text-wrap: pretty; }
+.artikel__voet { width: 100%; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--lijn); color: var(--ink-vaag); font-family: var(--font-mono); font-size: 10px; }
+@media (max-width: 900px) { .artikels__grid { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .artikels { padding-top: 82px; } .artikels__kop { align-items: flex-start; flex-direction: column; gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .artikel, .artikel::after { transition: none; } }

@@ -1,0 +1,64 @@
+.hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: min(900px, 100svh);
+    max-width: var(--breedte);
+    margin: 0 auto;
+    padding: 132px var(--marge) 64px;
+    scroll-margin-top: 100px;
+}
+
+.hero__inhoud {
+    display: grid;
+    grid-template-columns: minmax(0, 1.13fr) minmax(280px, 0.68fr);
+    align-items: center;
+    gap: clamp(40px, 6vw, 86px);
+}
+.hero__tekst { position: relative; z-index: 1; }
+.hero__kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 11px; color: var(--ink-licht); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; animation: heroReveal 0.8s 0.05s both; }
+.hero__stip { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-soft); box-shadow: 0 0 18px color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+.hero__titel { display: flex; flex-direction: column; margin-top: 34px; font-family: var(--font); font-size: clamp(84px, 11.4vw, 150px); font-weight: 600; line-height: 0.76; letter-spacing: -0.105em; animation: heroReveal 0.9s 0.14s both; }
+.hero__titel span { color: var(--ink); }
+.hero__titel em { margin-top: 16px; color: transparent; font-style: normal; -webkit-text-stroke: 1.5px var(--ink-licht); }
+.hero__rol { width: fit-content; margin-top: 30px; padding-left: 14px; border-left: 2px solid var(--accent-soft); color: var(--ink-licht); font-size: 14px; letter-spacing: 0.01em; animation: heroReveal 0.8s 0.22s both; }
+.hero__intro { max-width: 53ch; margin-top: 21px; color: var(--ink-zacht); font-size: clamp(15px, 1.35vw, 18px); line-height: 1.8; text-wrap: pretty; animation: heroReveal 0.8s 0.3s both; }
+.hero__acties { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; animation: heroReveal 0.8s 0.38s both; }
+.knop { display: inline-flex; align-items: center; justify-content: center; gap: 17px; min-height: 48px; padding: 0 18px; border: 1px solid var(--rand-sterk); border-radius: 999px; font-size: 13px; font-weight: 600; transition: transform 0.24s ease, background 0.24s ease, color 0.24s ease, border-color 0.24s ease; }
+.knop:hover { transform: translateY(-3px); color: var(--ink); border-color: var(--accent); }
+.knop--primair { background: var(--accent-soft); border-color: var(--accent-soft); color: #14180d; }
+.knop--primair:hover { background: var(--ink); border-color: var(--ink); color: var(--op-ink); }
+.knop--primair span { font-size: 18px; line-height: 1; }
+.knop--secundair { color: var(--ink-zacht); }
+.hero__stack { display: flex; flex-wrap: wrap; gap: 0; margin-top: 38px; color: var(--ink-vaag); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; animation: heroReveal 0.8s 0.44s both; }
+.hero__stack li + li::before { content: '·'; padding: 0 12px; color: var(--accent-soft); }
+
+.hero__portret { position: relative; width: 100%; max-width: 390px; justify-self: end; margin: 0 9px 5px 0; padding: 11px; border: 1px solid var(--rand); border-radius: 48% 48% 8px 8px; background: color-mix(in srgb, var(--vlak) 84%, transparent); box-shadow: 0 35px 90px var(--schaduw); transform: rotate(1.5deg); animation: heroReveal 1s 0.25s both; }
+.hero__portret::before { position: absolute; z-index: -1; inset: -18px 20px 18px -18px; border: 1px solid color-mix(in srgb, var(--accent) 47%, transparent); border-radius: 48% 48% 10px 10px; content: ''; transform: rotate(-3deg); }
+.hero__portret::after { position: absolute; z-index: -2; top: 16%; right: -56px; width: 112px; height: 112px; border: 1px solid color-mix(in srgb, var(--accent-soft) 55%, transparent); border-radius: 50%; content: ''; }
+.hero__portret img { width: 100%; aspect-ratio: 0.8; border-radius: 48% 48% 5px 5px; object-fit: cover; object-position: center 34%; filter: saturate(0.88) contrast(1.02); }
+.hero__portret figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 13px 5px 2px; font-family: var(--font-mono); font-size: 10px; color: var(--ink-licht); }
+.hero__portret figcaption span:first-child { color: var(--ink); font-weight: 700; }
+.hero__verder { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: clamp(38px, 7vh, 70px); padding-top: 14px; border-top: 1px solid var(--lijn); color: var(--ink-vaag); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
+.hero__verder span { color: var(--accent-soft); font-size: 17px; animation: arrowFloat 2.3s ease-in-out infinite; }
+
+@keyframes arrowFloat { 50% { transform: translateY(5px); } }
+
+@media (max-width: 850px) {
+    .hero { min-height: auto; padding-top: 132px; }
+    .hero__inhoud { grid-template-columns: minmax(0, 1fr) minmax(235px, 0.63fr); gap: 28px; }
+    .hero__titel { font-size: clamp(72px, 11vw, 100px); }
+    .hero__portret { max-width: 340px; }
+}
+@media (max-width: 620px) {
+    .hero { padding-top: 112px; padding-bottom: 38px; }
+    .hero__inhoud { grid-template-columns: 1fr; gap: 38px; }
+    .hero__titel { margin-top: 27px; font-size: clamp(73px, 18.5vw, 120px); }
+    .hero__titel em { margin-top: 12px; -webkit-text-stroke-width: 1px; }
+    .hero__intro { max-width: 46ch; }
+    .hero__portret { width: min(76%, 370px); justify-self: center; margin-right: 0; }
+    .hero__portret::after { right: -40px; width: 78px; height: 78px; }
+    .hero__verder { margin-top: 46px; }
+}
+@media (prefers-reduced-motion: reduce) { .hero__verder span { animation: none; } .hero__kicker, .hero__titel, .hero__rol, .hero__intro, .hero__acties, .hero__stack, .hero__portret { animation: none; } }

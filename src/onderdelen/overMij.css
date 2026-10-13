@@ -1,0 +1,136 @@
+.overmij {
+    max-width: var(--breedte);
+    margin: 0 auto;
+    padding: 92px var(--marge) 0;
+    scroll-margin-top: 96px;
+}
+
+.overmij__sectietitel {
+    max-width: 20ch;
+    margin-top: 10px;
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.06em;
+}
+
+.overmij__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.7fr);
+    gap: clamp(40px, 8vw, 104px);
+    align-items: start;
+    margin-top: 24px;
+}
+
+.overmij__tekstkolom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.overmij__lead {
+    max-width: 35ch;
+    font-size: clamp(25px, 3vw, 36px);
+    font-weight: 500;
+    line-height: 1.24;
+    letter-spacing: -0.045em;
+    text-wrap: pretty;
+}
+.overmij__lead em {
+    font-style: normal;
+    color: var(--accent);
+}
+
+.overmij__tekst {
+    max-width: 58ch;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-zacht);
+    text-wrap: pretty;
+}
+
+/* stack-kaarten */
+.stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.stack__kaart {
+    padding: 16px 18px;
+    border: 1px solid var(--rand);
+    border-radius: 7px;
+    background: var(--vlak);
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+}
+.stack__kaart:hover {
+    border-color: var(--rand-hover);
+    background: var(--vlak-hover);
+    transform: translateY(-2px);
+}
+
+.stack__kaart:nth-child(1), .stack__kaart:nth-child(2),
+.stack__kaart:nth-child(3), .stack__kaart:nth-child(4) { max-width: none; }
+
+.stack__titel {
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.stack__items {
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--ink-zacht);
+}
+
+.stack__voetnoot {
+    max-width: 34ch;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-vaag);
+}
+
+/* foto */
+.overmij__beeld {
+    position: relative;
+    margin: 0;
+}
+
+/* .overmij__foto staat nu rechtstreeks op de <img> (geen omhullende div meer),
+   dus de framing (aspect-ratio, afronding, hoogte) en de beeldweergave
+   (object-fit, filter) staan hier in één regel samengevoegd. */
+.overmij__foto {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    max-height: 620px;
+    border-radius: 8px;
+    background: var(--vlak-hover);
+    object-fit: cover;
+    filter: saturate(0.84);
+}
+
+.overmij__plaats {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--rand);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--vlak) 88%, transparent);
+    font-size: 12px;
+    color: var(--ink-zacht);
+}
+
+@media (max-width: 1000px) {
+    .overmij__grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 620px) {
+    .stack { grid-template-columns: 1fr; }
+}
