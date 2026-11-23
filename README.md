@@ -4,6 +4,10 @@ Mijn persoonlijke portfolio. Ik studeer Toegepaste Informatica aan de Karel de G
 
 Gemaakt met **React** en **Vite**, met gewone CSS.
 
+🌐 Live: https://canpekcan1905.github.io/Portfolio/
+
+De site wordt automatisch gepubliceerd op GitHub Pages bij elke push naar `main` (zie `.github/workflows/deploy.yml`).
+
 ## Lokaal starten
 
 ```bash

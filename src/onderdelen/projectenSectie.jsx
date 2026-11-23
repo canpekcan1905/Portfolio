@@ -7,12 +7,13 @@ const PROJECTEN = [
     {
         nummer: '01',
         titel: 'Patchwork',
-        jaar: '2025',
-        status: 'Schoolproject',
+        jaar: '2026',
+        status: 'Schoolproject · team van 3',
         soort: 'Desktopapplicatie · Java',
-        tekst: 'Een digitale uitvoering van het bordspel Patchwork met een tegenstander op drie niveaus. Ik werkte de spelregels, scoreberekening en opslag van partijen uit.',
-        tech: ['Java', 'JavaFX', 'PostgreSQL'],
-        focus: ['Spelregels en scoreberekening', 'Tegenstander met drie niveaus', 'Opslag van gespeelde partijen'],
+        tekst: 'Een digitale versie van het bordspel Patchwork voor 2 spelers. Ik schreef het grootste deel van de spelcode en bouwde de computertegenstander, die elke zet beoordeelt op inkomsten, kosten, tijd en plaatsing op het bord.',
+        tech: ['Java', 'JavaFX', 'PostgreSQL', 'Maven'],
+        focus: ['Computertegenstander met drie moeilijkheidsgraden', 'Spellen opslaan en hervatten, met ranglijst', 'Opgebouwd volgens Model-View-Presenter'],
+        notitie: 'Het spel draaide op de databaseserver van de school en is daarom niet online te proberen. De code licht ik graag toe in een gesprek.',
         beelden: [patchworkOverzicht, patchworkMenu, patchworkLanding],
     },
     {
@@ -89,6 +90,8 @@ function ProjectenSectie() {
                             <ul className="project__focus">
                                 {project.focus.map((punt) => <li key={punt}>{punt}</li>)}
                             </ul>
+
+                            {project.notitie && <p className="project__notitie">{project.notitie}</p>}
 
                             <ul className="project__tech" aria-label="Gebruikte technologieën">
                                 {project.tech.map((tech) => (

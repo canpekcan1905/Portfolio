@@ -4,7 +4,7 @@ import portret from '../assets/portfolio_foto.webp'
 const STACK = [
     { titel: 'Back-end', items: 'Java / C# / Python / PostgreSQL / MySQL / Node.js' },
     { titel: 'Front-end', items: 'JavaScript / TypeScript / React / HTML / CSS' },
-    { titel: 'Desktop', items: 'JavaFX / .NET' },
+    { titel: 'Desktop & mobiel', items: 'JavaFX / .NET / Flutter' },
     { titel: 'Tools', items: 'Git / Linux / Vite / IntelliJ / VS Code' },
 ]
 

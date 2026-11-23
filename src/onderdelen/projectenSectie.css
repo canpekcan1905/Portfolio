@@ -37,6 +37,7 @@
 .project__focus { display: grid; gap: 9px; margin-top: 20px; }
 .project__focus li { display: flex; align-items: baseline; gap: 10px; color: var(--ink-zacht); font-size: 13px; }
 .project__focus li::before { content: ''; width: 5px; height: 5px; flex: 0 0 5px; border-radius: 50%; background: var(--accent); }
+.project__notitie { max-width: 52ch; margin-top: 18px; padding: 10px 12px; border-left: 2px solid var(--accent); color: var(--ink-licht); font-size: 12px; line-height: 1.7; }
 .project__tech { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 23px; }
 .project__tag { padding: 5px 10px; border: 1px solid var(--rand); border-radius: 4px; color: var(--ink-licht); font-size: 11px; }
 
